@@ -29,9 +29,9 @@ defmodule BoxyElixir.MixProject do
       # {:dep_from_hexpm, "~> 0.3.0"},
       # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"},
       # {:sibling_app_in_umbrella, in_umbrella: true}
-      {:grpcbox, "~> 0.14.0"},
+      {:grpcbox, "~> 0.15.0"},
       {:chatterbox,
-       git: "https://github.com/tsloughter/chatterbox.git", tag: "v0.10.0", override: true},
+       git: "https://github.com/tsloughter/chatterbox.git", tag: "v0.12.0", override: true},
       {:boxy_erlang, in_umbrella: true, manager: :rebar3}
     ]
   end

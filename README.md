@@ -96,6 +96,8 @@ $ rebar3 grpc gen
 ===> Writing /.../boxy_erlang/src/hello_world_pb.erl
 ```
 
+> This might complain about not being able to write to a `_build` directory in the `boxy_erlang` directory.
+
 Now that we have our protobuf Erlang modules, we can access it in Elixir as `:hello_world_pb`. We can also utilise `alias ..., as: ...` to make it more idiomatic.
 
 ### Elixir project
@@ -106,9 +108,9 @@ In `boxy_elixir`, we need to add a couple of dependencies,
 # mix.exs
   defp deps do
     [
-      {:grpcbox, "~> 0.14.0"},
+      {:grpcbox, "~> 0.15.0"},
       {:chatterbox,
-       git: "https://github.com/tsloughter/chatterbox.git", tag: "v0.10.0", override: true},
+       git: "https://github.com/tsloughter/chatterbox.git", tag: "v0.12.0", override: true},
       {:boxy_erlang, in_umbrella: true, manager: :rebar3}
     ]
   end
@@ -117,8 +119,6 @@ In `boxy_elixir`, we need to add a couple of dependencies,
 - `grpcbox` contains the code necessary to start a gRPC server.
 - `chatterbox` is the HTTP/2 library used by `grpcbox`.
 - `boxy_erlang` is a sibling application, used to house the Erlang stub files.
-
-> We have to fix and override the `chatterbox` dependency here as there's an outgoing issue where the first gRPC request is honoured, but subsequent requests will fail.
 
 Run `mix deps.get` to get our dependencies. Next, we generate our configuration in the umbrella configuration that maps to the `grpcbox` `sys.config` configuration:
 

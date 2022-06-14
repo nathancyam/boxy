@@ -23,4 +23,3 @@ message HelloResponse {
   string response = 1;
 }
 
-

@@ -764,12 +764,11 @@ get_service_names() -> ['example.HelloService'].
 get_service_def('example.HelloService') ->
     {{service, 'example.HelloService'},
      [#{name => 'Hello', input => hello_request, output => hello_response, input_stream => false, output_stream => false, opts => []},
-      #{name => 'Greet', input => greet_request, output => greet_response, input_stream => false, output_stream => true, opts => []},
-      #{name => 'Boo', input => greet_request, output => hello_response, input_stream => false, output_stream => false, opts => []}]};
+      #{name => 'Greet', input => greet_request, output => greet_response, input_stream => false, output_stream => true, opts => []}]};
 get_service_def(_) -> error.
 
 
-get_rpc_names('example.HelloService') -> ['Hello', 'Greet', 'Boo'];
+get_rpc_names('example.HelloService') -> ['Hello', 'Greet'];
 get_rpc_names(_) -> error.
 
 
@@ -779,7 +778,6 @@ find_rpc_def(_, _) -> error.
 
 'find_rpc_def_example.HelloService'('Hello') -> #{name => 'Hello', input => hello_request, output => hello_response, input_stream => false, output_stream => false, opts => []};
 'find_rpc_def_example.HelloService'('Greet') -> #{name => 'Greet', input => greet_request, output => greet_response, input_stream => false, output_stream => true, opts => []};
-'find_rpc_def_example.HelloService'('Boo') -> #{name => 'Boo', input => greet_request, output => hello_response, input_stream => false, output_stream => false, opts => []};
 'find_rpc_def_example.HelloService'(_) -> error.
 
 
@@ -807,7 +805,6 @@ service_name_to_fqbin(X) -> error({gpb_error, {badservice, X}}).
 %% name, as atoms.
 fqbins_to_service_and_rpc_name(<<"example.HelloService">>, <<"Hello">>) -> {'example.HelloService', 'Hello'};
 fqbins_to_service_and_rpc_name(<<"example.HelloService">>, <<"Greet">>) -> {'example.HelloService', 'Greet'};
-fqbins_to_service_and_rpc_name(<<"example.HelloService">>, <<"Boo">>) -> {'example.HelloService', 'Boo'};
 fqbins_to_service_and_rpc_name(S, R) -> error({gpb_error, {badservice_or_rpc, {S, R}}}).
 
 
@@ -816,7 +813,6 @@ fqbins_to_service_and_rpc_name(S, R) -> error({gpb_error, {badservice_or_rpc, {S
 %% an rpc name as binaries.
 service_and_rpc_name_to_fqbins('example.HelloService', 'Hello') -> {<<"example.HelloService">>, <<"Hello">>};
 service_and_rpc_name_to_fqbins('example.HelloService', 'Greet') -> {<<"example.HelloService">>, <<"Greet">>};
-service_and_rpc_name_to_fqbins('example.HelloService', 'Boo') -> {<<"example.HelloService">>, <<"Boo">>};
 service_and_rpc_name_to_fqbins(S, R) -> error({gpb_error, {badservice_or_rpc, {S, R}}}).
 
 
@@ -881,7 +877,7 @@ get_service_containment("hello_world") -> ['example.HelloService'];
 get_service_containment(P) -> error({gpb_error, {badproto, P}}).
 
 
-get_rpc_containment("hello_world") -> [{'example.HelloService', 'Hello'}, {'example.HelloService', 'Greet'}, {'example.HelloService', 'Boo'}];
+get_rpc_containment("hello_world") -> [{'example.HelloService', 'Hello'}, {'example.HelloService', 'Greet'}];
 get_rpc_containment(P) -> error({gpb_error, {badproto, P}}).
 
 
